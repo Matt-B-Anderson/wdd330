@@ -42,3 +42,8 @@ export function renderListWithTemplate(
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+export function resolveImagePublicPath(path) {
+  const clean = path.replace(/^(\.\.\/)+/, "");
+  return import.meta.env.BASE_URL + clean;
+}

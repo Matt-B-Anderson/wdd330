@@ -1,4 +1,8 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  resolveImagePublicPath,
+} from "./utils.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -34,7 +38,7 @@ function productDetailsLayout(product) {
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 
   const productImage = document.getElementById("productImage");
-  productImage.src = product.Image;
+  productImage.src = resolveImagePublicPath(product.Image);
   productImage.alt = product.NameWithoutBrand;
 
   document.getElementById("productPrice").textContent = product.FinalPrice;
