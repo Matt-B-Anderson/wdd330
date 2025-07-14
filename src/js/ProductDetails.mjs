@@ -14,13 +14,13 @@ export default class ProductDetails {
       .getElementById("addToCart")
       .addEventListener("click", this.addProductToCart.bind(this));
   }
-  addProductToCart(product) {
+  addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
     const alreadyInCart = cartItems.find(
-      (cartItem) => cartItem.id === product.id,
+      (cartItem) => cartItem.Id === this.product.Id,
     );
     if (!alreadyInCart) {
-      cartItems.push(product);
+      cartItems.push(this.product);
     }
     setLocalStorage("so-cart", cartItems);
   }
