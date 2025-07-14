@@ -1,9 +1,9 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   root: "src/",
-
+  base: command === "serve" ? "/" : "/wdd330/",
   build: {
     outDir: "../docs",
     rollupOptions: {
@@ -15,4 +15,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
