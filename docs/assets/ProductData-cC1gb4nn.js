@@ -1,0 +1,17 @@
+function n(a) {
+  if (a.ok) return a.json();
+  throw new Error("Bad Response");
+}
+class r {
+  constructor(t) {
+    (this.category = t), (this.path = `/wdd330/json/${this.category}.json`);
+  }
+  async getData() {
+    const t = await fetch(this.path);
+    return await n(t);
+  }
+  async findProductById(t) {
+    return (await this.getData()).find((s) => s.Id === t);
+  }
+}
+export { r as P };
