@@ -47,3 +47,8 @@ export function resolveImagePublicPath(path) {
   const clean = path.replace(/^(\.\.\/)+/, "");
   return import.meta.env.BASE_URL + clean;
 }
+
+export function getCartCount() {
+  const cartItems = getLocalStorage("so-cart");
+  document.querySelector(".cart-count").textContent = cartItems?.length ?? 0;
+}
