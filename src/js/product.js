@@ -5,7 +5,7 @@ import ProductDetails from "./ProductDetails.mjs";
 getCartCount();
 
 const dataSource = new ProductData("tents");
-const productId = getParam("products");
+const productId = getParam("product");
 
 const product = new ProductDetails(productId, dataSource);
 product.init();

@@ -1,18 +1,12 @@
-import { renderListWithTemplate, convertToJson } from "./utils.mjs";
+import { renderListWithTemplate, getData } from "./utils.mjs";
 
 export default class Alert {
   constructor(category) {
     this.category = category;
     this.path = import.meta.env.BASE_URL + `json/${this.category}.json`;
   }
-  async getData() {
-    const res = await fetch(this.path);
-    const data = await convertToJson(res);
-    return data;
-  }
-
   async init() {
-    const alertData = await this.getData();
+    const alertData = await getData(this.path);
     let alertSection;
     if (alertData.length !== 0) {
       alertSection = document.createElement("section");

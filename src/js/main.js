@@ -1,17 +1,38 @@
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
 import Alert from "./Alert";
-import { getCartCount } from "./utils.mjs";
+import {
+  getCartCount,
+  resolveImagePublicPath,
+  capitalizeFirst,
+} from "./utils.mjs";
 
 getCartCount();
 
 const alertList = new Alert("alerts");
 alertList.init();
 
-const dataSource = new ProductData("tents");
+const categories = ["tents", "backpacks", "sleeping-bags", "hammocks"];
 
-const element = document.querySelector(".product-list");
+function createProductTypes(categories) {
+  const htmlItems = categories.map((category) => productTypeTemplate(category));
+  document.querySelector(".product-types").innerHTML = htmlItems.join("");
+}
 
-const productList = new ProductList("Tents", dataSource, element);
+function productTypeTemplate(category) {
+  const imgSrc = resolveImagePublicPath(`../images/category-${category}.svg`);
+  const imageTag = `
+        <img
+          src="${imgSrc}"
+          alt="${category}"
+        />
+      `;
+  return `
+            <li>
+                <a href="product_listing/?category=${category}">
+                    ${imageTag}
+                    <h2>${capitalizeFirst(category)}</h2>
+                </a>
+            </li>
+    `;
+}
 
-productList.init();
+createProductTypes(categories);

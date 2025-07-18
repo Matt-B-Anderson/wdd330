@@ -189,6 +189,28 @@ button {
     color: var(--dark-grey);
 }
 
+.product-types {
+    display: flex;
+    flex-flow: row wrap;
+    list-style-type: none;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.product-types a {
+    text-decoration: none;
+    color: var(--dark-grey);
+}
+
+.product-types a img {
+    width: 150px;
+    height: 150px;
+}
+
+.product-types a h2 {
+    text-align: center;
+}
+
 /* Styles for product lists */
 .product-card {
     flex: 1 1 45%;

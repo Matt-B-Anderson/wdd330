@@ -1,8 +1,10 @@
 import {
   getDiscountBadge,
   getDiscount,
+  getData,
   renderListWithTemplate,
   resolveImagePublicPath,
+  capitalizeFirst,
 } from "./utils.mjs";
 
 function productCardTemplate(product) {
@@ -20,7 +22,7 @@ function productCardTemplate(product) {
   return `
     <li class="product-card">
     ${discountBadge}
-      <a href="product_pages/?products=${product.Id}">
+      <a href="product_pages/?product=${product.Id}">
         ${imageTag}
         <h2>${product.Brand.Name}</h2>
         <h3>${product.Name}</h3>
@@ -37,11 +39,13 @@ export default class ProductList {
     this.listElement = listElement;
   }
   async init() {
-    const list = await this.dataSource.getData();
+    const list = await getData(this.dataSource.path);
     this.renderList(list);
   }
 
   renderList(list) {
+    document.getElementById("category").innerText =
+      `${capitalizeFirst(this.category)}`;
     renderListWithTemplate(productCardTemplate, this.listElement, list);
   }
 }
