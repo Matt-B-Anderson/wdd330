@@ -2,6 +2,8 @@ import {
   getLocalStorage,
   setLocalStorage,
   resolveImagePublicPath,
+  getDiscount,
+  getDiscountBadge,
 } from "./utils.mjs";
 
 export default class ProductDetails {
@@ -36,6 +38,10 @@ export default class ProductDetails {
 }
 
 function productDetailsLayout(product) {
+  const discountBadge = getDiscountBadge(
+    getDiscount(product.SuggestedRetailPrice, product.FinalPrice),
+  );
+  document.getElementById("discount-badge").innerHTML = discountBadge;
   document.querySelector("h2").textContent = product.Brand.Name;
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 

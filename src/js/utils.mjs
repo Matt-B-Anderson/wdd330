@@ -52,3 +52,38 @@ export function getCartCount() {
   const cartItems = getLocalStorage("so-cart");
   document.querySelector(".cart-count").textContent = cartItems?.length ?? 0;
 }
+
+export function getDiscount(SuggestedRetailPrice, FinalPrice) {
+  const discount = SuggestedRetailPrice
+    ? Math.round(
+        ((SuggestedRetailPrice - FinalPrice) / SuggestedRetailPrice) * 100,
+      )
+    : 0;
+  return discount;
+}
+
+export function getDiscountBadge(discount) {
+  const discountBadge =
+    discount > 0
+      ? `<svg
+    class="discount-badge"
+    width="80" height="40"
+    viewBox="0 0 80 40"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="${discount}% OFF!">
+    <polygon points="0,0 65,0 80,20 65,40 0,40" fill="#e74c3c" />
+    <text
+      x="42.5" y="25"
+      fill="#fff"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="14"
+      font-weight="bold"
+      text-anchor="middle">
+      ${discount}% OFF!
+    </text>
+  </svg>`
+      : "";
+
+  return discountBadge;
+}

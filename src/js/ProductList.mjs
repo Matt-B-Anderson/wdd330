@@ -1,35 +1,14 @@
-import { renderListWithTemplate, resolveImagePublicPath } from "./utils.mjs";
+import {
+  getDiscountBadge,
+  getDiscount,
+  renderListWithTemplate,
+  resolveImagePublicPath,
+} from "./utils.mjs";
 
 function productCardTemplate(product) {
-  const discount = product.SuggestedRetailPrice
-    ? Math.round(
-        ((product.SuggestedRetailPrice - product.FinalPrice) /
-          product.SuggestedRetailPrice) *
-          100,
-      )
-    : 0;
-  const discountBadge =
-    discount > 0
-      ? `<svg
-    class="discount-badge"
-    width="80" height="40"
-    viewBox="0 0 80 40"
-    xmlns="http://www.w3.org/2000/svg"
-    role="img"
-    aria-label="${discount}% OFF!">
-    <polygon points="0,0 65,0 80,20 65,40 0,40" fill="#e74c3c" />
-    <text
-      x="42.5" y="25"
-      fill="#fff"
-      font-family="Arial, Helvetica, sans-serif"
-      font-size="14"
-      font-weight="bold"
-      text-anchor="middle">
-      ${discount}% OFF!
-    </text>
-  </svg>`
-      : "";
-
+  const discountBadge = getDiscountBadge(
+    getDiscount(product.SuggestedRetailPrice, product.FinalPrice),
+  );
   const imgSrc = resolveImagePublicPath(product.Image);
   const imageTag = `
     <img
