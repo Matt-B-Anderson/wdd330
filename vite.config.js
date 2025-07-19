@@ -5,7 +5,7 @@ export default defineConfig(({ command }) => ({
   root: "src/",
   base: command === "serve" ? "/" : "/wdd330/",
   build: {
-    outDir: "../docs",
+    outDir: "../dist",
     rollupOptions: {
       input: {
         main: resolve(__dirname, "src/index.html"),
