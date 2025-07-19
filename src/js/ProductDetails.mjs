@@ -23,10 +23,10 @@ export default class ProductDetails {
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
     const alreadyInCart = cartItems.find(
-      (cartItem) => cartItem.Result.Id === this.product.Id,
+      (cartItem) => cartItem.item.Result.Id === this.product.Result.Id,
     );
     if (!alreadyInCart) {
-      cartItems.push(this.product);
+      cartItems.push({ quantity: 1, item: this.product });
     }
     setLocalStorage("so-cart", cartItems);
     const count = cartItems?.length;

@@ -286,7 +286,7 @@ button {
     padding: 0;
     margin: 0;
     max-width: 1rem;
-    grid-column: 4;
+    grid-column: 6;
     grid-row: 1;
 }
 
@@ -309,9 +309,44 @@ button {
     grid-column: 2;
 }
 
+.quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid var(--secondary-color);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.qty-btn {
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.qty-value {
+    min-width: 1.25em;
+    text-align: center;
+    font-size: 1rem;
+    color: #111;
+}
+
+.qty-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: #111;
+    pointer-events: none;
+}
+
+
 .cart-card__quantity {
-    grid-row: 1;
-    grid-column: 3;
+    margin-top: 0;
+    grid-row: 2;
+    grid-column: 4;
 }
 
 .cart-card__price {
