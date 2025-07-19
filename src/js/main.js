@@ -3,9 +3,8 @@ import {
   getCartCount,
   resolveImagePublicPath,
   capitalizeFirst,
+  loadHeaderFooter,
 } from "./utils.mjs";
-
-getCartCount();
 
 const alertList = new Alert("alerts");
 alertList.init();
@@ -35,4 +34,9 @@ function productTypeTemplate(category) {
     `;
 }
 
-createProductTypes(categories);
+async function init() {
+  await loadHeaderFooter();
+  getCartCount();
+  createProductTypes(categories);
+}
+init();
