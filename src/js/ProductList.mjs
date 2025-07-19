@@ -1,9 +1,7 @@
 import {
   getDiscountBadge,
   getDiscount,
-  getData,
   renderListWithTemplate,
-  resolveImagePublicPath,
   capitalizeFirst,
 } from "./utils.mjs";
 

@@ -79,12 +79,10 @@ export function getCartCount() {
 }
 
 export function getDiscount(SuggestedRetailPrice, FinalPrice) {
-  const discount = SuggestedRetailPrice
-    ? Math.round(
-        ((SuggestedRetailPrice - FinalPrice) / SuggestedRetailPrice) * 100,
-      )
-    : 0;
-  return discount;
+  if (!SuggestedRetailPrice) return 0;
+  const discountPercent =
+    ((SuggestedRetailPrice - FinalPrice) / SuggestedRetailPrice) * 100;
+  return Number(discountPercent.toFixed(2));
 }
 
 export function getDiscountBadge(discount) {
