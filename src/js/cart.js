@@ -6,7 +6,7 @@ import {
 } from "./utils.mjs";
 
 function calculateTotal(cartItems) {
-  return cartItems?.reduce((sum, item) => sum + item.FinalPrice, 0);
+  return cartItems?.reduce((sum, item) => sum + item.Result.FinalPrice, 0);
 }
 
 function renderCartContents() {
@@ -25,7 +25,7 @@ function renderCartContents() {
       e.preventDefault();
       const id = e.currentTarget.dataset.id;
 
-      const newCart = cartItems.filter((item) => String(item.Id) !== id);
+      const newCart = cartItems.filter((item) => String(item.Result.Id) !== id);
 
       setLocalStorage("so-cart", newCart);
       getCartCount();
@@ -35,25 +35,26 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  console.log(item);
   const newItem = `
   <li class="cart-card divider">
    <button class="remove-from-cart"
-              data-id="${item.Id}"
-              aria-label="Remove ${item.Name}">
+              data-id="${item.Result.Id}"
+              aria-label="Remove ${item.Result.Name}">
         ×
       </button>
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
-      alt="${item.Name}"
+      src="${item.Result.Images.PrimaryMedium}"
+      alt="${item.Result.Name}"
     />
   </a>
   <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
+    <h2 class="card__name">${item.Result.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  <p class="cart-card__color">${item.Result.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <p class="cart-card__price">$${item.Result.FinalPrice}</p>
 </li>
 `;
 

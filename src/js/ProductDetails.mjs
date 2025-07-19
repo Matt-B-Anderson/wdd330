@@ -23,7 +23,7 @@ export default class ProductDetails {
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
     const alreadyInCart = cartItems.find(
-      (cartItem) => cartItem.Id === this.product.Id,
+      (cartItem) => cartItem.Result.Id === this.product.Id,
     );
     if (!alreadyInCart) {
       cartItems.push(this.product);
@@ -39,21 +39,22 @@ export default class ProductDetails {
 
 function productDetailsLayout(product) {
   const discountBadge = getDiscountBadge(
-    getDiscount(product.SuggestedRetailPrice, product.FinalPrice),
+    getDiscount(product.Result.SuggestedRetailPrice, product.Result.FinalPrice),
   );
   document.getElementById("discount-badge").innerHTML = discountBadge;
-  document.querySelector("h2").textContent = product.Brand.Name;
-  document.querySelector("h3").textContent = product.NameWithoutBrand;
+  document.querySelector("h2").textContent = product.Result.Name;
+  document.querySelector("h3").textContent = product.Result.NameWithoutBrand;
 
   const productImage = document.getElementById("productImage");
-  productImage.src = resolveImagePublicPath(product.Image);
-  productImage.alt = product.NameWithoutBrand;
+  productImage.src = product.Result.Images.PrimaryLarge;
+  productImage.alt = product.Result.NameWithoutBrand;
 
-  document.getElementById("productPrice").textContent = product.FinalPrice;
+  document.getElementById("productPrice").textContent =
+    product.Result.FinalPrice;
   document.getElementById("productColor").textContent =
-    product.Colors[0].ColorName;
+    product.Result.Colors[0].ColorName;
   document.getElementById("productDesc").innerHTML =
-    product.DescriptionHtmlSimple;
+    product.Result.DescriptionHtmlSimple;
 
-  document.getElementById("addToCart").dataset.id = product.Id;
+  document.getElementById("addToCart").dataset.id = product.Result.Id;
 }

@@ -11,7 +11,7 @@ function productCardTemplate(product) {
   const discountBadge = getDiscountBadge(
     getDiscount(product.SuggestedRetailPrice, product.FinalPrice),
   );
-  const imgSrc = resolveImagePublicPath(product.Image);
+  const imgSrc = product.Images.PrimaryMedium;
   const imageTag = `
     <img
       src="${imgSrc}"
@@ -39,13 +39,13 @@ export default class ProductList {
     this.listElement = listElement;
   }
   async init() {
-    const list = await getData(this.dataSource.path);
+    const list = await this.dataSource.getData(this.category);
     this.renderList(list);
   }
 
   renderList(list) {
     document.getElementById("category").innerText =
-      `${capitalizeFirst(this.category)}`;
+      `Top Products: ${capitalizeFirst(this.category)}`;
     renderListWithTemplate(productCardTemplate, this.listElement, list);
   }
 }
