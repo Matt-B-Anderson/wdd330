@@ -6,7 +6,7 @@ import {
 } from "./utils.mjs";
 
 function calculateTotal(cartItems) {
-  return (total = cartItems?.reduce((sum, item) => sum + item.FinalPrice, 0));
+  return cartItems?.reduce((sum, item) => sum + item.FinalPrice, 0);
 }
 
 function renderCartContents() {
