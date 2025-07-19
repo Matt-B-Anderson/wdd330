@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig(({ command }) => ({
   root: "src/",
-  base: command === "serve" ? "/" : "/wdd330/",
+  base: "/",
   build: {
     outDir: "../dist",
     rollupOptions: {
