@@ -3,6 +3,7 @@ import {
   setLocalStorage,
   getDiscount,
   getDiscountBadge,
+  alertMessage
 } from "./utils.mjs";
 
 export default class ProductDetails {
@@ -30,6 +31,7 @@ export default class ProductDetails {
     setLocalStorage("so-cart", cartItems);
     const count = cartItems?.length;
     document.querySelector(".cart-count").textContent = count;
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
   }
   renderProductDetails() {
     productDetailsLayout(this.product);
