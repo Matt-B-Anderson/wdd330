@@ -8,7 +8,7 @@ import {
 function calculateTotal(cartItems) {
   return (
     cartItems?.reduce((sum, entry) => {
-      const price = entry.item.Result.FinalPrice;
+      const price = entry.item.FinalPrice;
       const qty = entry.quantity;
       return sum + price * qty;
     }, 0) ?? 0
@@ -20,8 +20,7 @@ function updateCartQuantity(itemId, delta) {
 
   const newCart = cartItems
     .map((entry) => {
-      if (entry.item.Result.Id === itemId) {
-        console.log("working");
+      if (entry.item.Id === itemId) {
         const q = entry.quantity + delta;
         return { ...entry, quantity: Math.max(0, q) };
       }
@@ -38,8 +37,10 @@ function renderCartContents() {
   let htmlItems;
   if (cartItems.length > 0) {
     htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    const checkoutBtn = document.querySelector(".checkout-btn");
+    checkoutBtn.classList.add("show");
   } else {
-    htmlItems = "";
+    htmlItems = [];
   }
 
   document.querySelector(".product-list").innerHTML = htmlItems?.join("");
@@ -55,11 +56,12 @@ function renderCartContents() {
       e.preventDefault();
       const id = e.currentTarget.dataset.id;
       const newCart = cartItems.filter(
-        (item) => String(item.item.Result.Id) !== id,
+        (item) => String(item.item.Id) !== id,
       );
 
       setLocalStorage("so-cart", newCart);
       getCartCount();
+      document.querySelector(".checkout-btn").classList.remove("show");
       renderCartContents();
     });
   });
@@ -87,21 +89,21 @@ function cartItemTemplate(item) {
   <li class="cart-card divider">
     <button
         class="remove-from-cart"
-        data-id="${item.item.Result.Id}"
-        aria-label="Remove ${item.item.Result.Name}"
+        data-id="${item.item.Id}"
+        aria-label="Remove ${item.item.Name}"
     >
         ×
     </button>
   <a href="#" class="cart-card__image">
     <img
-      src="${item.item.Result.Images.PrimaryMedium}"
-      alt="${item.item.Result.Name}"
+      src="${item.item.Images.PrimaryMedium}"
+      alt="${item.item.Name}"
     />
   </a>
   <a href="#">
-    <h2 class="card__name">${item.item.Result.Name}</h2>
+    <h2 class="card__name">${item.item.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.item.Result.Colors[0].ColorName}</p>
+  <p class="cart-card__color">${item.item.Colors[0].ColorName}</p>
   <div class="cart-card__quantity">
     <div id="cart-quantity-stepper" class="quantity-selector"> 
         <button
@@ -109,7 +111,7 @@ function cartItemTemplate(item) {
             class="qty-btn qty-decrement"
             aria-label="Remove item"
             title="Remove item"
-            data-id="${item.item.Result.Id}"
+            data-id="${item.item.Id}"
         >
             <svg viewBox="0 0 24 24" class="icon-trash">
                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
@@ -127,7 +129,7 @@ function cartItemTemplate(item) {
             class="qty-btn qty-increment"
             aria-label="Increase quantity"
             title="Increase quantity"
-            data-id="${item.item.Result.Id}"
+            data-id="${item.item.Id}"
         >
             <svg viewBox="0 0 24 24" class="icon-plus">
             <rect x="11" y="5" width="2" height="14"/>
@@ -136,7 +138,7 @@ function cartItemTemplate(item) {
         </button>
     </div>
 </div>
-  <p class="cart-card__price">$${item.item.Result.FinalPrice}</p>
+  <p class="cart-card__price">$${item.item.FinalPrice}</p>
 </li>
 `;
 
